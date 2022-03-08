@@ -5,12 +5,31 @@ import java.util.Scanner;
 public class Game {
     static Scanner console = new Scanner(System.in);
 
+    public static int takeTurn() {
+        System.out.println("Take your turn.");
+        System.out.println("1. Attack");
+        System.out.println("2. Heal");
+        System.out.print("Move: ");
+        int choice = console.nextInt();
+        if(!(choice == 1 || choice == 2)) {
+            System.out.println("Invalid choice, enter again: ");
+            return console.nextInt();
+        }
+        return choice;
+    }
+
     public static void round(int round, Character hero, Character enemy) {
         System.out.format("\nRound %d\n", round);
         System.out.format("A %s approaches!\n", enemy);
 
         while(true) {
-            hero.attack(enemy);
+            int choice = takeTurn();
+            if(choice == 1) {
+                hero.attack(enemy);
+            }
+            else if(choice == 2) {
+                hero.heal();
+            }
             System.out.format("You deal %d damage to the %s!\n", hero.getAttackPower(), enemy);
             System.out.format("The %s has %d health left!\n", enemy, enemy.getHealth());
 
@@ -30,12 +49,13 @@ public class Game {
                 else {
                     System.out.println("You won this round.");
                 }
+                hero.heal();
                 break;
             }
         }
     }
 
-    public static Character choice(int choice) {
+    public static Character chooseCharacter(int choice) {
         if(choice == 1) {
             return new Knight();
         }
@@ -60,19 +80,17 @@ public class Game {
             System.out.print("Invalid choice, please enter again: ");
             choice = console.nextInt();
         }
-        Character hero = choice(choice);
+        Character hero = chooseCharacter(choice);
         System.out.format("You chose to be a %s.\n", hero);
         System.out.println("You enter the dungeon.");
 
         //round 1
         Character enemy = new Zombie();
         round(1, hero, enemy);
-        hero.heal();
 
 
         //round 2
         enemy = new Skeleton();
         round(2, hero, enemy);
-        hero.heal();
     }
 }
