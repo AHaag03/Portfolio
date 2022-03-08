@@ -6,7 +6,7 @@ public class Game {
     static Scanner console = new Scanner(System.in);
 
     public static void round(int round, Character hero, Character enemy) {
-        System.out.format("Round %d\n", round);
+        System.out.format("\nRound %d\n", round);
         System.out.format("A %s approaches!\n", enemy);
 
         while(true) {
@@ -64,14 +64,15 @@ public class Game {
         System.out.format("You chose to be a %s.\n", hero);
         System.out.println("You enter the dungeon.");
 
-        /*
         //round 1
         Character enemy = new Zombie();
         round(1, hero, enemy);
+        hero.heal();
+
 
         //round 2
         enemy = new Skeleton();
         round(2, hero, enemy);
-         */
+        hero.heal();
     }
 }

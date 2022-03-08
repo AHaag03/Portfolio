@@ -2,6 +2,7 @@ package adventure_game;
 
 abstract class Character {
     private int health;
+    private int maxHealth;
     private final int attackPower;
     private int stamina;
     private final int magicPower;
@@ -9,6 +10,7 @@ abstract class Character {
 
     public Character(int health, int attackPower, int stamina, int magicPower, int defense) {
         this.health = health;
+        this.maxHealth = health;
         this.attackPower = attackPower;
         this.stamina = stamina;
         this.magicPower = magicPower;
@@ -52,5 +54,9 @@ abstract class Character {
 
     public boolean isAlive() {
         return this.health > 0;
+    }
+
+    public void heal() {
+        this.health = maxHealth;
     }
 }
